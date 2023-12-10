@@ -19,6 +19,14 @@ const List = () => {
             return unsubscribe;
           }, []);
 
+          const DeleteBlog = (id)=>{
+            ListOfBlogs.doc(id).delete().then(()=>{
+                alert ("Document delete successfully");
+            }).catch((error) => {
+                console.error("Removing document Error: ", error);
+            })
+          };
+
     return (
         <div>
             {blogs.map(blog =>(
@@ -26,6 +34,11 @@ const List = () => {
                     <p>Title: {blog.Title}</p>
                     <p>Body: {blog.Body}</p>
                     <Link to={"/display/"+blog.id}>Show</Link>
+                    <Link to={"/edit/"+blog.id}>Edit</Link>
+                <button onClick={() => {
+                    DeleteBlog(blog.id)}}>
+                        Delete
+                    </button>
                 </div>
             ))}
         </div>
